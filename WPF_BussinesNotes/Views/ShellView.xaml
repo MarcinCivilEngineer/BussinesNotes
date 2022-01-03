@@ -1,0 +1,74 @@
+﻿<Window x:Class="WPF_BussinesNotes.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:local="clr-namespace:WPF_BussinesNotes.Views"
+        mc:Ignorable="d"
+         Title="{Binding TytulAplikacji}" Height="800" Width="600">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" MinHeight="20">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+
+            <MenuItem Header="Raport">
+                <MenuItem Header="Nowy dokument"/>
+                <MenuItem Header="Faktura VAT" x:Name="LoadPageVatInvoice"/>
+                <MenuItem Header="Faktura VAT RR" x:Name="LoadPageVatRRInvoice"/>
+                <Separator/>
+                <MenuItem Header="Pokaż dokument" x:Name="LoadPageShowDocument"/>
+                <MenuItem Header="Usun"/>
+                <MenuItem Header="Kopiuj tabele"/>
+                <Separator/>
+                <MenuItem Header="Następny"/>
+                <MenuItem Header="Poprzedni"/>
+                <MenuItem Header="Dziś"/>
+                <Separator/>
+                <MenuItem Header="Podsumowanie"/>
+                <MenuItem Header="Drukuj zestawienie"/>
+            </MenuItem>
+            <MenuItem Header="Ustawienia">
+                <MenuItem Header="Wykaz towarów" x:Name="LoadPageShowProducts"/>
+                <Separator/>
+                <MenuItem Header="Stawki podatków" x:Name="LoadPageTax"/>
+                <MenuItem Header="Definiowanie kont"/>
+                <MenuItem Header="Numeracja dokumentów"/>
+                <Separator/>
+                <MenuItem Header="Grupowanie danych"/>
+                <MenuItem Header="Składniki wynagrodzeń"/>
+                <MenuItem Header="Inne parametry"/>
+            </MenuItem>
+            <MenuItem Header="Pomoc" HorizontalAlignment="Right" FlowDirection="RightToLeft">
+                <MenuItem Header="O programie"/>
+                <Separator/>
+                <MenuItem Header="Licencja"/>
+            </MenuItem>
+            
+
+            
+
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="2" Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ContentControl  x:Name="ActiveItem"/>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>

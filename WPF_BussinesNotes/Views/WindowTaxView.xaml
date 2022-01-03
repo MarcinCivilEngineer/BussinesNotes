@@ -1,0 +1,142 @@
+﻿<Window x:Class="WPF_BussinesNotes.Views.WindowTaxView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_BussinesNotes.Views"
+        mc:Ignorable="d"
+        Title="WindowTaxView" Width="300" Height="Auto">
+    <Window.Resources>
+        <Style x:Key="ParametrOpis" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 5 0 0"/>
+        </Style>
+        <Style x:Key="Parametr" TargetType="TextBox">
+            <Setter Property="Background" Value="AntiqueWhite"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="DarkOliveGreen"/>
+        </Style>
+        <Style x:Key="ParametrError" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <ScrollViewer Grid.Row="1" Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+            <GroupBox Header="Podatek dochodowy" Margin="5" >
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0" >
+                
+                    <TextBlock Text="Kwota zmniejszenia podatku:" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_ValueOfTaxReduction" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_ValueOfTaxReduction" Style="{StaticResource ParametrError}"/>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Progi" Style="{StaticResource ParametrOpis}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="%" Style="{StaticResource ParametrOpis}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
+                        <TextBlock Text="zł" Style="{StaticResource ParametrOpis}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Pierwszy" Style="{StaticResource ParametrOpis}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="Ed_TaxThreshold1precent" Style="{StaticResource Parametr}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <TextBox x:Name="Ed_TaxThreshold1value" Style="{StaticResource Parametr}" Grid.Row="1" Grid.Column="2" Margin="5"/>
+
+                        <TextBlock Text="Drugi" Style="{StaticResource ParametrOpis}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="Ed_TaxThreshold2precent" Style="{StaticResource Parametr}" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <TextBox x:Name="Ed_TaxThreshold2value" Style="{StaticResource Parametr}" Grid.Row="2" Grid.Column="2" Margin="5"/>
+
+                        <TextBlock Text="Trzeci" Style="{StaticResource ParametrOpis}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="Ed_TaxThreshold3precent" Style="{StaticResource Parametr}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                        <TextBlock x:Name="Vd_TaxThreshold" Style="{StaticResource ParametrError}"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+                <GroupBox Header="Miesięczny koszt uzyskania przychodu" Margin="5" >
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0">
+                    <TextBlock Text="Pracownik miejscowy [zł]" Style="{StaticResource ParametrOpis}"/>
+                    <TextBox x:Name="Ed_LocalWorker" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_LocalWorker" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="Pracownik dojeżdzający [zł]" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_CommuterWorker" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_CommuterWorker" Style="{StaticResource ParametrError}"/>
+
+                    </StackPanel>
+            </GroupBox>
+                <GroupBox Header="Umowa zlecenie" Margin="5" >
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Text="Zaliczka na podatek [zł]" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_TaxAdvance" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_TaxAdvance" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="Pracownik dojeżdzający [zł]" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_TaxDeductibleExpenses" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_TaxDeductibleExpenses" Style="{StaticResource ParametrError}"/>
+
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Ubezpieczenie społeczne %" Margin="5" >
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Text="Emerytalne (pracownik i firma po 50%)" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_PensionablePay" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_PensionablePay" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="Rentowe" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_SocialPensionContribution" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_SocialPensionContribution" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="w tym część pracownika" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_SocialPensionContributionWorker" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_SocialPensionContributionWorker" Style="{StaticResource ParametrError}"/>
+                        
+                        <TextBlock Text="Rentowe (w całości pracownik)" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_SickPay" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_SickPay" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="Wypadkowe (całość firma)" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_Resultant" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_Resultant" Style="{StaticResource ParametrError}"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Margin="5" >
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Text="Fundusz Pracy" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_LabourFund" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_LabourFund" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="Fundusz Gw, Św, Pr." Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_Funds" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_Funds" Style="{StaticResource ParametrError}"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Margin="5" >
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Text="Ubezpieczenie zdrowotne" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_HealthInsurance" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_HealthInsurance" Style="{StaticResource ParametrError}"/>
+
+                        <TextBlock Text="część nie odliczana od podatku" Style="{StaticResource ParametrOpis}"/>
+                        <TextBox x:Name="Ed_PartUndeductFromTax" Style="{StaticResource Parametr}"/>
+                        <TextBlock x:Name="Vd_PartUndeductFromTax" Style="{StaticResource ParametrError}"/>
+                    </StackPanel>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 15 0 0">
+                    <Button Margin="0 0 0 0" x:Name="CancelButton" Padding="5 2 5 2">Zaniechaj</Button>
+                    <Button Margin="0 0 0 0" x:Name="ResetButton" Padding="5 2 5 2">Ustaw domyślne wartości</Button>
+                    <Button Margin="0 0 0 0" x:Name="AkceptButton" Padding="5 2 5 2">Zatwierdz</Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
