@@ -14,14 +14,14 @@ namespace WPF_BussinesNotes.ViewModels
 
         //public ShellViewModel OknoProjektu;
 
-        private TaxModel _eD = new TaxModel();
+        private TaxModel _ed = new TaxModel();
 
         public TaxModel Ed
         {
-            get { return _eD; }
+            get { return _ed; }
             set
             {
-                _eD = value;
+                _ed = value;
 
             }
         }

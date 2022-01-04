@@ -17,11 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WPF_FirmaLibrary\WPF_BussinesNotesLibrary.csproj" />
+    <ProjectReference Include="..\WPF_BussinesNotesLibrary\WPF_BussinesNotesLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Update="Views\WindowProductsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WindowProductsEditView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

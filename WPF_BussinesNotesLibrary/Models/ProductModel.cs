@@ -8,16 +8,45 @@ namespace WPF_BussinesNotesLibrary.Models
 {
     public class ProductModel
     {
+        SqlLiteDataAcces da = new SqlLiteDataAcces();
         public int Id { get; set; }
-
-        public string Nazwa { get; set; }
-
+        public string Name { get; set; }
         public string PKWiU { get; set; }
+        public int IdUnit { get; set; }
+        public UnitModel Unit
+        {
+            get
+            {
+                
+                if (IdUnit > 0)
+                {
+                    return da.LoadUnit(id: this.IdUnit).First();
 
-        public int IdJednostka { get; set; }
+                }
+                else
+                {
+                    return new UnitModel();
+                }
+            }
+        }
+        public int IdProductType { get; set; }
+        public ProductTypeModel ProductType
+        {
+            get
+            {
+                if (IdProductType > 0)
+                {
+                    return da.LoadProductType(id: this.IdProductType).First();
+
+                }
+                else
+                {
+                    return new ProductTypeModel();
+                }
+            }
+        }
         public double Vat { get; set; }
         public double Value { get; set; }
-
         public bool Visable { get; set; }
 
         public string tabela = "Product";
@@ -27,9 +56,10 @@ namespace WPF_BussinesNotesLibrary.Models
         {
             list_zmienne.Clear();
             list_wartosci.Clear();
-            list_zmienne.Add("Nazwa"); list_wartosci.Add(this.Nazwa.ToString());
+            list_zmienne.Add("Name"); list_wartosci.Add(this.Name.ToString());
             list_zmienne.Add("PKWiU"); list_wartosci.Add(this.PKWiU.ToString());
-            list_zmienne.Add("IdJednostka"); list_wartosci.Add(this.IdJednostka.ToString());
+            list_zmienne.Add("IdUnit"); list_wartosci.Add(this.IdUnit.ToString());
+            list_zmienne.Add("IdProductType"); list_wartosci.Add(this.IdProductType.ToString());
             list_zmienne.Add("Vat"); list_wartosci.Add(this.Vat.ToString());
             list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString());
             list_zmienne.Add("Visable"); list_wartosci.Add(this.Visable.ToString());
@@ -37,9 +67,10 @@ namespace WPF_BussinesNotesLibrary.Models
         public void SqlCreate()
         {
             SqlLiteDataAcces.UtworzTabele($"CREATE TABLE {tabela} (Id INTEGER NOT NULL UNIQUE, " +
-                $"Nazwa TEXT, " +
+                $"Name TEXT, " +
                 $"PKWiU TEXT, " +
-                $"IdJednostka INT, " +
+                $"IdUnit INT, " +
+                $"IdProductType INT, " +
                 $"Vat FLOAT, " +
                 $"Value FLOAT, " +
                 $"Visable BOOL, " +

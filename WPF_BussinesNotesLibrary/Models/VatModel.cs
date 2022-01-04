@@ -6,34 +6,35 @@ using System.Threading.Tasks;
 
 namespace WPF_BussinesNotesLibrary.Models
 {
-    public class UnitModel
+    public class VatModel
     {
+        /// <summary>
+        /// Contain Value of Tax VAT
+        /// </summary>
         public int Id { get; set; }
-        public string Name { get; set; }
+        public double Value { get; set; }
 
         ///
-        public string tabela = "Unit";
+        public string tabela = "Vat";
         private List<string> list_zmienne = new List<string>();
         private List<string> list_wartosci = new List<string>();
         public void SqlQuery()
         {
             list_zmienne.Clear();
             list_wartosci.Clear();
-            list_zmienne.Add("Name"); list_wartosci.Add(this.Name.ToString());
+            list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString());
         }
         public void SqlCreate()
         {
             SqlLiteDataAcces.UtworzTabele($"CREATE TABLE {tabela} (Id INTEGER NOT NULL UNIQUE, " +
-                $"Name TEXT, " +
+                $"Value FLOAT, " +
                 $"PRIMARY KEY(Id AUTOINCREMENT))");
 
-            new UnitModel { Id = 1, Name = "r-g" }.SqlInsert();
-            new UnitModel { Id = 2, Name = "m-g" }.SqlInsert();
-            new UnitModel { Id = 3, Name = "m" }.SqlInsert();
-            new UnitModel { Id = 4, Name = "szt." }.SqlInsert();
-            new UnitModel { Id = 5, Name = "kg" }.SqlInsert();
-            new UnitModel { Id = 6, Name = "t" }.SqlInsert();
-            new UnitModel { Id = 7, Name = "pal" }.SqlInsert();
+            new VatModel { Id = 1, Value = 0 }.SqlInsert();
+            new VatModel { Id = 2, Value = 8 }.SqlInsert();
+            new VatModel { Id = 3, Value = 22 }.SqlInsert();
+            new VatModel { Id = 4, Value = 23 }.SqlInsert();
+
         }
         public int SqlInsert()
         {

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WPF_BussinesNotesLibrary.Models
 {
-    public class UnitModel
+    public class ProductTypeModel
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
 
-        ///
-        public string tabela = "Unit";
+        public string tabela = "ProductType";
         private List<string> list_zmienne = new List<string>();
         private List<string> list_wartosci = new List<string>();
         public void SqlQuery()
@@ -27,13 +27,10 @@ namespace WPF_BussinesNotesLibrary.Models
                 $"Name TEXT, " +
                 $"PRIMARY KEY(Id AUTOINCREMENT))");
 
-            new UnitModel { Id = 1, Name = "r-g" }.SqlInsert();
-            new UnitModel { Id = 2, Name = "m-g" }.SqlInsert();
-            new UnitModel { Id = 3, Name = "m" }.SqlInsert();
-            new UnitModel { Id = 4, Name = "szt." }.SqlInsert();
-            new UnitModel { Id = 5, Name = "kg" }.SqlInsert();
-            new UnitModel { Id = 6, Name = "t" }.SqlInsert();
-            new UnitModel { Id = 7, Name = "pal" }.SqlInsert();
+            new ProductTypeModel { Id = 1, Name = "Robocizna" }.SqlInsert();
+            new ProductTypeModel { Id = 2, Name = "Materiał" }.SqlInsert();
+            new ProductTypeModel { Id = 3, Name = "Sprzęt" }.SqlInsert();
+            new ProductTypeModel { Id = 4, Name = "Inne" }.SqlInsert();
         }
         public int SqlInsert()
         {

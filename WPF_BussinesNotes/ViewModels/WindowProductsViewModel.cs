@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using System.Dynamic;
 using System.Linq;
 using System.Windows;
 using WPF_BussinesNotes.ViewModels;
@@ -14,51 +15,55 @@ namespace WPF_BussinesNotes.ViewModels
 
         //public ShellViewModel OknoProjektu;
 
-        private TaxModel _eD = new TaxModel();
+        private BindableCollection<ProductModel> _edGrid = new BindableCollection<ProductModel>();
 
-        public TaxModel Ed
+        public BindableCollection<ProductModel> EdGrid
         {
-            get { return _eD; }
+            get { return _edGrid; }
             set
             {
-                _eD = value;
+                _edGrid = value;
 
             }
         }
 
+        private ProductModel _selectedEdGrid = new ProductModel();
+
+        public ProductModel SelectedEdGrid
+        {
+            get { return _selectedEdGrid; }
+            set
+            {
+                _selectedEdGrid = value;
+
+            }
+        }
 
         public WindowProductsViewModel()
         {
-            if (da.LoadTax(id: 1).Count()>0) {
-                Ed = da.LoadTax(id: 1).First();
-            }
-            else { 
-
-            Ed.ValueOfTaxReduction = 556.02;
-            Ed.TaxThreshold1precent = 17;
-            Ed.TaxThreshold1value = 85528;
-            Ed.TaxThreshold2precent = 32;
-            Ed.TaxThreshold2value = 0;
-            Ed.TaxThreshold3precent = 0;
-            Ed.LocalWorker = 111.25;
-            Ed.CommuterWorker = 139.06;
-            Ed.TaxAdvance = 18;
-            Ed.TaxDeductibleExpenses = 20;
-            Ed.PensionablePay = 19.52;
-            Ed.SocialPensionContribution = 8;
-            Ed.SocialPensionContributionWorker = 1.5;
-            Ed.SickPay = 2.45;
-            Ed.Resultant = 1.8;
-            Ed.LabourFund = 2.45;
-            Ed.Funds = 0.1;
-            Ed.HealthInsurance = 9;
-            Ed.PartUndeductFromTax = 1.25;
-            }
-            NotifyOfPropertyChange(() => Ed);
+            EdGrid.AddRange(da.LoadProduct());
+            
+            NotifyOfPropertyChange(() => EdGrid);
         }
 
-        public void CreateButton(string edNazwaZlecenia)
+        public void InsertButton()
         {
+            WindowManager windowManager = new WindowManager();
+            dynamic settings = new ExpandoObject();
+            settings.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            settings.ShowInTaskbar = true;
+            settings.Title = "Nowy towar";
+            settings.WindowState = WindowState.Normal;
+            settings.ResizeMode = ResizeMode.CanMinimize;
+
+            var newWindowProductsEdit = new WindowProductsEditViewModel(new ProductModel());
+            windowManager.ShowDialogAsync(newWindowProductsEdit);//, null, settings
+
+            EdGrid.Clear();
+            EdGrid.AddRange(da.LoadProduct());
+            NotifyOfPropertyChange(() => EdGrid);
+            
+
             /*
             //SqlLiteDataAcces da = new SqlLiteDataAcces();
             BudowaModel EditedModel = new BudowaModel { Id = 0, AdresZlecenia = EdAdresZlecenia, IdFirmaWykonawca = SelectedFirmaWykonawca.Id, IdFirmaInwestor = SelectedFirmaInwestor.Id, NazwaZlecenia = EdNazwaZlecenia, NumerZlecenia = EdNumerZlecenia };
@@ -88,8 +93,24 @@ namespace WPF_BussinesNotes.ViewModels
             //NotifyOfPropertyChange(() => ShellViewModel.Projekty);
             */
         }
-        public void UpdateButton()
+        public void EditButton()
         {
+            WindowManager windowManager = new WindowManager();
+            dynamic settings = new ExpandoObject();
+            settings.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            settings.ShowInTaskbar = true;
+            settings.Title = "Edycja towaru";
+            settings.WindowState = WindowState.Normal;
+            settings.ResizeMode = ResizeMode.CanMinimize;
+            int tmpIdProduct = SelectedEdGrid.Id;
+            var newWindowProductsEdit = new WindowProductsEditViewModel(SelectedEdGrid);
+            windowManager.ShowDialogAsync(newWindowProductsEdit);
+
+            EdGrid.Clear();
+            EdGrid.AddRange(da.LoadProduct());
+            SelectedEdGrid = EdGrid.First(x => x.Id == tmpIdProduct);
+            NotifyOfPropertyChange(() => EdGrid);
+            NotifyOfPropertyChange(() => SelectedEdGrid);
             /*
             if (SelectedBudowa != null)
             {
@@ -107,6 +128,13 @@ namespace WPF_BussinesNotes.ViewModels
                 MessageBox.Show("Zmodyfikowano");
             }
             */
+        }
+        public void VisibilityButton()
+        {
+        }
+        public void CancelButton()
+        {
+            this.TryCloseAsync(false);
         }
 
     }

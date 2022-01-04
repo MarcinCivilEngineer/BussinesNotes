@@ -32,7 +32,7 @@
                 <MenuItem Header="Drukuj zestawienie"/>
             </MenuItem>
             <MenuItem Header="Ustawienia">
-                <MenuItem Header="Wykaz towarów" x:Name="LoadPageShowProducts"/>
+                <MenuItem Header="Wykaz towarów" x:Name="LoadPageProducts"/>
                 <Separator/>
                 <MenuItem Header="Stawki podatków" x:Name="LoadPageTax"/>
                 <MenuItem Header="Definiowanie kont"/>

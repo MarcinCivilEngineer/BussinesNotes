@@ -22,7 +22,7 @@
             <Setter Property="Margin" Value="0 0 0 0"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="10">
         <ScrollViewer Grid.Row="1" Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel>
             <GroupBox Header="Podatek dochodowy" Margin="5" >

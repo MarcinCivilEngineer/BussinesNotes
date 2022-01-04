@@ -30,10 +30,98 @@ namespace WPF_BussinesNotesLibrary
                 cnn.Close();
                 return output;
             }
-
-
         }
 
+        public List<ProductModel> LoadProduct(int id = 0)
+        {
+            string tabela = new ProductModel().tabela;
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                List<ProductModel> output = new List<ProductModel>();
+                cnn.Open();
+                if (id != 0)
+                {
+                    output = cnn.Query<ProductModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
+                }
+                else
+                {
+                    output = cnn.Query<ProductModel>($"select * from {tabela}", new DynamicParameters()).ToList();
+                }
+                cnn.Close();
+                return output;
+            }
+        }
+
+        public List<UnitModel> LoadUnit(int id = 0, string nazwa="")
+        {
+            string tabela = new UnitModel().tabela;
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                List<UnitModel> output = new List<UnitModel>();
+                cnn.Open();
+                if (id != 0)
+                {
+                    output = cnn.Query<UnitModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
+                }
+                if (nazwa != "")
+                {
+                    output = cnn.Query<UnitModel>($"select * from {tabela} where Name='" + nazwa+"' ORDER BY Name ASC", new DynamicParameters()).ToList();
+                }
+                else
+                {
+                    output = cnn.Query<UnitModel>($"select * from {tabela} ORDER BY Name ASC", new DynamicParameters()).ToList();
+                }
+                cnn.Close();
+                return output;
+            }
+        }
+
+        public List<ProductTypeModel> LoadProductType(int id = 0, string nazwa = "")
+        {
+            string tabela = new ProductTypeModel().tabela;
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                List<ProductTypeModel> output = new List<ProductTypeModel>();
+                cnn.Open();
+                if (id != 0)
+                {
+                    output = cnn.Query<ProductTypeModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
+                }
+                if (nazwa != "")
+                {
+                    output = cnn.Query<ProductTypeModel>($"select * from {tabela} where Name='" + nazwa + "' ORDER BY Name ASC", new DynamicParameters()).ToList();
+                }
+                else
+                {
+                    output = cnn.Query<ProductTypeModel>($"select * from {tabela} ORDER BY Name ASC", new DynamicParameters()).ToList();
+                }
+                cnn.Close();
+                return output;
+            }
+        }
+        public List<VatModel> LoadVat(int id = 0, double wartosc = 0)
+        {
+            string tabela = new VatModel().tabela;
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                List<VatModel> output = new List<VatModel>();
+                cnn.Open();
+                if (id != 0)
+                {
+                    output = cnn.Query<VatModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
+                }
+                if (wartosc != 0)
+                {
+                    output = cnn.Query<VatModel>($"select * from {tabela} where Value='" + wartosc.ToString() + "' ORDER BY Value ASC", new DynamicParameters()).ToList();
+                }
+                else
+                {
+                    output = cnn.Query<VatModel>($"select * from {tabela} ORDER BY Value ASC", new DynamicParameters()).ToList();
+                }
+                cnn.Close();
+                return output;
+            }
+        }
         public List<ProgramSetupBoolModel> LoadProgramSetupBool(string parametr = "")
         {
 
@@ -153,6 +241,13 @@ namespace WPF_BussinesNotesLibrary
 
             new TaxModel().SqlCreate();
 
+            new UnitModel().SqlCreate();
+            new ProductTypeModel().SqlCreate();
+            new ProductModel().SqlCreate();
+
+            new VatModel().SqlCreate();
+
+            
         }
 
         private static string LoadConnectionString()
