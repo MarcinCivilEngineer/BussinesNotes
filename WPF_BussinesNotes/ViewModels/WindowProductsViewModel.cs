@@ -42,7 +42,9 @@ namespace WPF_BussinesNotes.ViewModels
         public WindowProductsViewModel()
         {
             EdGrid.AddRange(da.LoadProduct());
-            
+            if (EdGrid.Count() > 0) {
+                SelectedEdGrid = EdGrid.First();
+                    }
             NotifyOfPropertyChange(() => EdGrid);
         }
 

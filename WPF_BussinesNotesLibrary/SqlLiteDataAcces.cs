@@ -63,7 +63,7 @@ namespace WPF_BussinesNotesLibrary
                 {
                     output = cnn.Query<UnitModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
                 }
-                if (nazwa != "")
+                else if (nazwa != "")
                 {
                     output = cnn.Query<UnitModel>($"select * from {tabela} where Name='" + nazwa+"' ORDER BY Name ASC", new DynamicParameters()).ToList();
                 }
@@ -87,7 +87,7 @@ namespace WPF_BussinesNotesLibrary
                 {
                     output = cnn.Query<ProductTypeModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
                 }
-                if (nazwa != "")
+                else if (nazwa != "")
                 {
                     output = cnn.Query<ProductTypeModel>($"select * from {tabela} where Name='" + nazwa + "' ORDER BY Name ASC", new DynamicParameters()).ToList();
                 }
@@ -110,7 +110,7 @@ namespace WPF_BussinesNotesLibrary
                 {
                     output = cnn.Query<VatModel>($"select * from {tabela} where id=" + id.ToString(), new DynamicParameters()).ToList();
                 }
-                if (wartosc != 0)
+                else if (wartosc != 0)
                 {
                     output = cnn.Query<VatModel>($"select * from {tabela} where Value='" + wartosc.ToString() + "' ORDER BY Value ASC", new DynamicParameters()).ToList();
                 }

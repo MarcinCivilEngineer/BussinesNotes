@@ -25,7 +25,7 @@ namespace WPF_BussinesNotesLibrary.Models
                 }
                 else
                 {
-                    return new UnitModel();
+                    return null;
                 }
             }
         }
@@ -41,11 +41,26 @@ namespace WPF_BussinesNotesLibrary.Models
                 }
                 else
                 {
-                    return new ProductTypeModel();
+                    return null;
                 }
             }
         }
-        public double Vat { get; set; }
+        public int IdVat { get; set; }
+        public VatModel Vat
+        {
+            get
+            {
+                if (IdProductType > 0)
+                {
+                    return da.LoadVat(id: this.IdVat).First();
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public double Value { get; set; }
         public bool Visable { get; set; }
 
@@ -60,7 +75,7 @@ namespace WPF_BussinesNotesLibrary.Models
             list_zmienne.Add("PKWiU"); list_wartosci.Add(this.PKWiU.ToString());
             list_zmienne.Add("IdUnit"); list_wartosci.Add(this.IdUnit.ToString());
             list_zmienne.Add("IdProductType"); list_wartosci.Add(this.IdProductType.ToString());
-            list_zmienne.Add("Vat"); list_wartosci.Add(this.Vat.ToString());
+            list_zmienne.Add("IdVat"); list_wartosci.Add(this.IdVat.ToString());
             list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString());
             list_zmienne.Add("Visable"); list_wartosci.Add(this.Visable.ToString());
         }
@@ -71,7 +86,7 @@ namespace WPF_BussinesNotesLibrary.Models
                 $"PKWiU TEXT, " +
                 $"IdUnit INT, " +
                 $"IdProductType INT, " +
-                $"Vat FLOAT, " +
+                $"IdVat INT, " +
                 $"Value FLOAT, " +
                 $"Visable BOOL, " +
                 $"PRIMARY KEY(Id AUTOINCREMENT))");
