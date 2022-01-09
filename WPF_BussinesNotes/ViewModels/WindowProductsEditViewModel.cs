@@ -103,14 +103,39 @@ namespace WPF_BussinesNotes.ViewModels
             {
                 Ed.Name = "";
                 Ed.PKWiU = "";
-                Ed.Value = 0;
+                Ed.Value = 0.00;
                 Ed.Visable = true;
-                Ed.IdVat = EdCbVat.First().Id;
-                Ed.IdUnit = EdCbUnit.First().Id;
-                Ed.IdProductType = EdCbProductType.First().Id;
-                SelectedEdCbProductType = EdCbProductType.First();
-                SelectedEdCbUnit = EdCbUnit.First();
-                SelectedEdCbVat = EdCbVat.First();
+
+                if (da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdVat").Count() > 0)
+                {
+                    Ed.IdVat = int.Parse(da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdVat").First().Value);
+                }
+                else
+                {
+                    Ed.IdVat = EdCbVat.First().Id;
+                }
+
+                if (da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdUnit").Count() > 0)
+                {
+                    Ed.IdUnit = int.Parse(da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdUnit").First().Value);
+                }
+                else
+                {
+                    Ed.IdUnit = EdCbUnit.First().Id;
+                }
+
+                if (da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdProductType").Count() > 0)
+                {
+                    Ed.IdProductType = int.Parse(da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdProductType").First().Value);
+                }
+                else
+                {
+                    Ed.IdProductType = EdCbProductType.First().Id;
+                }
+
+                SelectedEdCbProductType = EdCbProductType.First(x=>x.Id==Ed.IdProductType);
+                SelectedEdCbUnit = EdCbUnit.First(x => x.Id == Ed.IdUnit);
+                SelectedEdCbVat = EdCbVat.First(x => x.Id == Ed.IdVat);
             }
             NotifyOfPropertyChange(() => Ed);
             NotifyOfPropertyChange(() => EdCbProductType);
@@ -135,6 +160,32 @@ namespace WPF_BussinesNotes.ViewModels
             if (Ed.Id == 0)
             {
                 Ed.SqlInsert();
+                if (da.LoadProgramDefaultSetup("WindowProductsEditViewModel_IdVat").Count() > 0)
+                {
+                    new ProgramDefaultSetupModel() { Id = da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdVat").First().Id, Name = "WindowProductsEditViewModel_IdVat", Value = Ed.IdVat.ToString() }.SqlUpdate();
+                }
+                else
+                {
+                    new ProgramDefaultSetupModel() { Id = 0, Name = "WindowProductsEditViewModel_IdVat", Value = SelectedEdCbVat.Id.ToString() }.SqlInsert();
+                }
+
+                if (da.LoadProgramDefaultSetup("WindowProductsEditViewModel_IdUnit").Count() > 0)
+                {
+                    new ProgramDefaultSetupModel() { Id = da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdUnit").First().Id, Name = "WindowProductsEditViewModel_IdUnit", Value = Ed.IdUnit.ToString() }.SqlUpdate();
+                }
+                else
+                {
+                    new ProgramDefaultSetupModel() { Id = 0, Name = "WindowProductsEditViewModel_IdUnit", Value = SelectedEdCbUnit.Id.ToString() }.SqlInsert();
+                }
+
+                if (da.LoadProgramDefaultSetup("WindowProductsEditViewModel_IdProductType").Count() > 0)
+                {
+                    new ProgramDefaultSetupModel() { Id = da.LoadProgramDefaultSetup(parametr: "WindowProductsEditViewModel_IdProductType").First().Id, Name = "WindowProductsEditViewModel_IdProductType", Value = Ed.IdProductType.ToString() }.SqlUpdate();
+                }
+                else
+                {
+                    new ProgramDefaultSetupModel() { Id = 0, Name = "WindowProductsEditViewModel_IdProductType", Value = SelectedEdCbProductType.Id.ToString() }.SqlInsert();
+                }
             } else
             {
                 Ed.SqlUpdate();

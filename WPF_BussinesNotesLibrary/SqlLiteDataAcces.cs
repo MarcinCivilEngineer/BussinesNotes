@@ -122,24 +122,6 @@ namespace WPF_BussinesNotesLibrary
                 return output;
             }
         }
-        public List<ProgramSetupBoolModel> LoadProgramSetupBool(string parametr = "")
-        {
-
-            string tabela = new ProgramSetupBoolModel().tabela;
-            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                List<ProgramSetupBoolModel> output = new List<ProgramSetupBoolModel>();
-                cnn.Open();
-                if (parametr != "")
-                {
-                    output = cnn.Query<ProgramSetupBoolModel>($"select * from {tabela} where nazwa='{parametr}'", new DynamicParameters()).ToList();
-                }
-
-
-                return output;
-
-            }
-        }
 
 
 
@@ -150,6 +132,23 @@ namespace WPF_BussinesNotesLibrary
                 cnn.Open();
                 cnn.Execute($"delete from {new TaxModel().tabela} where id = " + id);
                 cnn.Close();
+            }
+        }
+
+
+        public List<ProgramDefaultSetupModel> LoadProgramDefaultSetup(string parametr = "")
+        {
+
+            string tabela = new ProgramDefaultSetupModel().tabela;
+            using (SQLiteConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                List<ProgramDefaultSetupModel> output = new List<ProgramDefaultSetupModel>();
+                cnn.Open();
+                if (parametr != "")
+                {
+                    output = cnn.Query<ProgramDefaultSetupModel>($"select * from {tabela} where Name='{parametr}'", new DynamicParameters()).ToList();
+                }
+                return output;
             }
         }
 
@@ -237,7 +236,7 @@ namespace WPF_BussinesNotesLibrary
         {
             SQLiteConnection.CreateFile(plik);
 
-            new ProgramSetupBoolModel().SqlCreate();
+            new ProgramDefaultSetupModel().SqlCreate();
 
             new TaxModel().SqlCreate();
 

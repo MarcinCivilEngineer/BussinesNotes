@@ -1,30 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WPF_BussinesNotesLibrary.Models
 {
-    public class ProgramSetupBoolModel
+    public class ProgramDefaultSetupModel
     {
         public int Id { get; set; }
 
-        public string Nazwa { get; set; }
-        public bool Wartosc { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
 
 
-        public string tabela = "ProgramSetupBool";
+        public string tabela = "ProgramDefaultSetup";
         private List<string> list_zmienne = new List<string>();
         private List<string> list_wartosci = new List<string>();
         public void SqlQuery()
         {
             list_zmienne.Clear();
             list_wartosci.Clear();
-            list_zmienne.Add("Nazwa"); list_wartosci.Add(this.Nazwa.ToString());
-            list_zmienne.Add("Wartosc"); list_wartosci.Add(this.Wartosc.ToString());
+            list_zmienne.Add("Name"); list_wartosci.Add(this.Name.ToString());
+            list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString());
         }
         public void SqlCreate()
         {
             SqlLiteDataAcces.UtworzTabele($"CREATE TABLE {tabela} (Id INTEGER NOT NULL UNIQUE, " +
-                $"Nazwa TEXT, " +
-                $"Wartosc BOOL, " +
+                $"Name TEXT, " +
+                $"Value TEXT, " +
                 $"PRIMARY KEY(Id AUTOINCREMENT))");
         }
         public int SqlInsert()
