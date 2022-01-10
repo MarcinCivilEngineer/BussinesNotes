@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using WPF_BussinesNotes.ViewModels;
 using WPF_BussinesNotesLibrary;
 using WPF_BussinesNotesLibrary.Models;
@@ -25,7 +26,25 @@ namespace WPF_BussinesNotes.ViewModels
             }
         }
 
+        private string _edCbUnitNewValue;
+        public string EdCbUnitNewValue
+        {
+            get { return _edCbUnitNewValue; }
+            set
+            {
+                _edCbUnitNewValue = value;
+            }
+        }
 
+        private string _edDoubleValue;
+        public string EdDoubleValue
+        {
+            get { return _edDoubleValue; }
+            set
+            {
+                _edDoubleValue = value;
+            }
+        }
 
         private BindableCollection<UnitModel> _edCbUnit = new BindableCollection<UnitModel>();
         public BindableCollection<UnitModel> EdCbUnit
@@ -78,6 +97,16 @@ namespace WPF_BussinesNotes.ViewModels
             }
         }
 
+        private ComboBox _edCbUnitValue = new ComboBox();
+        public ComboBox EdCbUnitValue
+        {
+            get { return _edCbUnitValue; }
+            set
+            {
+                _edCbUnitValue = value;
+            }
+        }
+
         private UnitModel _selectedEdCbUnit = new UnitModel();
         public UnitModel SelectedEdCbUnit
         {
@@ -87,11 +116,21 @@ namespace WPF_BussinesNotes.ViewModels
                 _selectedEdCbUnit = value;
             }
         }
+        public void GetComboBoxValue(string name)
+        {
+            EdCbUnitNewValue = name;
+        }
+        public void SetDoubleValue(string name)
+        {
+            Ed.Value = double.Parse(name);
+        }
         public WindowProductsEditViewModel(ProductModel productModel)
         {
             EdCbUnit.AddRange(da.LoadUnit());
             EdCbProductType.AddRange(da.LoadProductType());
             EdCbVat.AddRange(da.LoadVat());
+
+            //ConventionManager.AddElementConvention<ComboBox>(ComboBox.TextProperty, "Text", "OnKeyDown");
             if (productModel.Id!=0)
             {
                 Ed = productModel;
@@ -149,11 +188,11 @@ namespace WPF_BussinesNotes.ViewModels
         public void AcceptButton(string edNazwaZlecenia)
         {
             Ed.IdVat = SelectedEdCbVat.Id;
-            if (EdCbUnit.Where(x => x.Id == SelectedEdCbUnit.Id).Count() > 0) { 
+            if (SelectedEdCbUnit!=null) { 
                 Ed.IdUnit = SelectedEdCbUnit.Id;
             } else
             {
-                int tmpIdUnit = new UnitModel() { Id = 0, Name = SelectedEdCbUnit.Name }.SqlInsert();
+                int tmpIdUnit = new UnitModel() { Id = 0, Name = EdCbUnitNewValue }.SqlInsert();
                 Ed.IdUnit = tmpIdUnit;
             }
             Ed.IdProductType = SelectedEdCbProductType.Id;

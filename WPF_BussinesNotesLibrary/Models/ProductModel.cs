@@ -76,7 +76,7 @@ namespace WPF_BussinesNotesLibrary.Models
             list_zmienne.Add("IdUnit"); list_wartosci.Add(this.IdUnit.ToString());
             list_zmienne.Add("IdProductType"); list_wartosci.Add(this.IdProductType.ToString());
             list_zmienne.Add("IdVat"); list_wartosci.Add(this.IdVat.ToString());
-            list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString());
+            list_zmienne.Add("Value"); list_wartosci.Add(this.Value.ToString().Replace(",", "."));
             list_zmienne.Add("Visable"); list_wartosci.Add(this.Visable.ToString());
         }
         public void SqlCreate()

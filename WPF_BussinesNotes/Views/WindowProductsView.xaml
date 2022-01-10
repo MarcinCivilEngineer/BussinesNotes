@@ -30,6 +30,7 @@
                         <DataGridTextColumn Binding="{Binding ProductType.Name}" Header="Typ materiału"/>
                         <DataGridTextColumn Binding="{Binding PKWiU}" Header="PKWiU"/>
                         <DataGridTextColumn Binding="{Binding Name}" Header="Nazwa"/>
+                        <DataGridTextColumn Binding="{Binding Value}" Header="Wartość"/>
                         <DataGridTextColumn Binding="{Binding Unit.Name}" Header="Jednostka"/>
                         <DataGridTextColumn Binding="{Binding Vat.Value}" Header="Vat"/>
                     </DataGrid.Columns>
